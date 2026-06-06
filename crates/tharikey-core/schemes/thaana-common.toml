@@ -1,0 +1,52 @@
+# Shared Thaana defaults, inherited by the Thaana schemes via `base = "thaana-common"`.
+# Centralizes the conventions that should be ALIGNED across schemes (not redefined per-scheme):
+# RTL punctuation + smart-quote glyph defaults. Each scheme overrides what it needs.
+#
+# Dives Akuru (a different script) does NOT inherit this. This is a base fragment — not a usable
+# scheme on its own (it has no letters), so it isn't listed by the CLI.
+
+[meta]
+id = "thaana-common"
+name = "Thaana shared defaults"
+input = "text"
+
+# Keys-path output transforms (`[transforms]`) — independently toggleable post-layer substitutions,
+# inherited by the keys keyboards (phonetic, typewriter). Text schemes carry them harmlessly (no live
+# Session, so they never fire). Each is a "substitute" (stateless 1:1 map) or "smart-quotes" (stateful
+# open/close alternation). Explicit inserts — long-press variants — bypass transforms by design.
+
+# RTL bracket-key flip — emits the logically-correct OPEN/CLOSE codepoint for the US position pressed
+# (Model A, not Hebrew SI-1452); bidi mirrors the glyph visually.
+[transforms.bracket_flip]
+kind = "substitute"
+label = "RTL bracket flip"
+description = "Pairs brackets the right way round for RTL text — the key you press emits the logically-correct open/close codepoint."
+enabled = true
+map = { "(" = ")", ")" = "(", "[" = "]", "]" = "[", "{" = "}", "}" = "{" }
+
+# Smart (curly) quotes — CLDR Arabic/Hebrew RTL convention. OFF by default.
+[transforms.smart_quotes]
+kind = "smart-quotes"
+label = "Smart quotes"
+description = "Turns straight quotes into curly ones (“ ” ‘ ’) as you type."
+enabled = false
+double = { open = "”", close = "“" }   # U+201D open / U+201C close
+single = { open = "’", close = "‘" }   # U+2019 open / U+2018 close
+
+# Rufiyaa sign — the keyboards emit "$" on Shift+4; this substitutes it to ⃂ (U+20C2). Toggle OFF to
+# type a literal "$" (code, other currencies). The Shift+4 long-press variants ($, €) bypass it.
+[transforms.rufiyaa]
+kind = "substitute"
+label = "Rufiyaa sign"
+description = "Types ⃂ (the rufiyaa sign) on ⇧4 instead of a dollar sign."
+enabled = true
+map = { "$" = "⃂" }
+
+# RTL-correct punctuation for the transliteration (text) path. Keys schemes also place these by
+# position in their layers; this block gives the text schemes (Malé Latin, Áletinu) the same chars.
+[literals]
+"," = "،"   # U+060C ARABIC COMMA
+";" = "؛"   # U+061B ARABIC SEMICOLON
+"?" = "؟"   # U+061F ARABIC QUESTION MARK
+"$" = "⃂"   # U+20C2 RUFIYAA SIGN — deterministic on the text path (the keys path toggles it; see above).
+# full stop left as ASCII "." pending confirmation of the Dhivehi convention.

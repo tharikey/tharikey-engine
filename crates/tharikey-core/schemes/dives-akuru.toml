@@ -1,0 +1,94 @@
+# Dives Akuru (InScript) — the historic Maldivian script.
+# A `keys` scheme that emits Dives Akuru codepoints (Unicode block U+11900–U+1195F, SMP).
+# The engine just emits logical-order codepoints; conjunct shaping + pre-base vowel reordering are
+# the font/shaper's job (needs a Dives Akuru font, e.g. Noto Serif Dives Akuru — macOS ships none).
+#
+# Source: re-encoded from the key/codepoint facts of Keyman's `dives_akuru_inscript` keyboard
+# (© SIL Global, MIT-licensed). InScript: base = dependent vowel signs + consonants; Shift =
+# independent vowels. Generated, not hand-typed. See docs/transliteration-engine.md §9 + Appendix A.
+
+[meta]
+id = "dives-akuru"
+name = "Dives Akuru"
+description = "Type the historical Maldivian Dives Akuru script."
+about = "An InScript layout for the historical Dives Akuru script (Unicode SMP), re-encoded from SIL Global's Keyman dives_akuru_inscript (MIT). Needs a Dives Akuru font (e.g. Noto Serif Dives Akuru) to render."
+input = "keys"
+output = "dives-akuru"
+reversible = false
+version = "1.0"
+
+[layers.base]
+0 = "𑥐"   # DIVES AKURU DIGIT ZERO
+1 = "𑥑"   # DIVES AKURU DIGIT ONE
+2 = "𑥒"   # DIVES AKURU DIGIT TWO
+3 = "𑥓"   # DIVES AKURU DIGIT THREE
+4 = "𑥔"   # DIVES AKURU DIGIT FOUR
+5 = "𑥕"   # DIVES AKURU DIGIT FIVE
+6 = "𑥖"   # DIVES AKURU DIGIT SIX
+7 = "𑥗"   # DIVES AKURU DIGIT SEVEN
+8 = "𑥘"   # DIVES AKURU DIGIT EIGHT
+9 = "𑥙"   # DIVES AKURU DIGIT NINE
+a = "𑤸"   # DIVES AKURU VOWEL SIGN O
+b = "𑤩"   # DIVES AKURU LETTER VA
+c = "𑤤"   # DIVES AKURU LETTER MA
+d = "𑤾"   # DIVES AKURU VIRAMA
+e = "𑤰"   # DIVES AKURU VOWEL SIGN AA
+f = "𑤱"   # DIVES AKURU VOWEL SIGN I
+g = "𑤳"   # DIVES AKURU VOWEL SIGN U
+h = "𑤠"   # DIVES AKURU LETTER PA
+i = "𑤎"   # DIVES AKURU LETTER GA
+j = "𑤧"   # DIVES AKURU LETTER RA
+k = "𑤌"   # DIVES AKURU LETTER KA
+l = "𑤛"   # DIVES AKURU LETTER TA
+m = "𑤬"   # DIVES AKURU LETTER SA
+n = "𑤨"   # DIVES AKURU LETTER LA
+o = "𑤝"   # DIVES AKURU LETTER DA
+p = "𑤓"   # DIVES AKURU LETTER JA
+q = "𑤽"   # DIVES AKURU SIGN HALANTA
+r = "𑤲"   # DIVES AKURU VOWEL SIGN II
+s = "𑤵"   # DIVES AKURU VOWEL SIGN E
+t = "𑤴"   # DIVES AKURU VOWEL SIGN UU
+u = "𑤭"   # DIVES AKURU LETTER HA
+v = "𑤟"   # DIVES AKURU LETTER NA
+w = "𑤷"   # DIVES AKURU VOWEL SIGN AI
+x = "𑤻"   # DIVES AKURU SIGN ANUSVARA
+y = "𑤢"   # DIVES AKURU LETTER BA
+z = "𑤯"   # DIVES AKURU LETTER ZA
+"'" = "𑤖"   # DIVES AKURU LETTER TTA
+"," = "𑥅"   # DIVES AKURU GAP FILLER
+"." = "𑥄"   # DIVES AKURU DOUBLE DANDA
+"/" = "𑤥"   # DIVES AKURU LETTER YA
+";" = "𑤑"   # DIVES AKURU LETTER CA
+"[" = "𑤘"   # DIVES AKURU LETTER DDA
+"]" = "𑥃"   # DIVES AKURU SIGN NUKTA
+"`" = "𑤿"   # DIVES AKURU PREFIXED NASAL SIGN
+
+[layers.shift]
+a = "𑤉"   # DIVES AKURU LETTER O
+b = "𑥁"   # DIVES AKURU INITIAL RA
+c = "𑤚"   # DIVES AKURU LETTER NNA
+d = "𑤀"   # DIVES AKURU LETTER A
+e = "𑤁"   # DIVES AKURU LETTER AA
+f = "𑤂"   # DIVES AKURU LETTER I
+g = "𑤄"   # DIVES AKURU LETTER U
+h = "𑤡"   # DIVES AKURU LETTER PHA
+i = "𑤏"   # DIVES AKURU LETTER GHA
+j = "𑥂"   # DIVES AKURU MEDIAL RA
+k = "𑤍"   # DIVES AKURU LETTER KHA
+l = "𑤜"   # DIVES AKURU LETTER THA
+m = "𑤪"   # DIVES AKURU LETTER SHA
+n = "𑤮"   # DIVES AKURU LETTER LLA
+o = "𑤞"   # DIVES AKURU LETTER DHA
+r = "𑤃"   # DIVES AKURU LETTER II
+s = "𑤆"   # DIVES AKURU LETTER E
+t = "𑤅"   # DIVES AKURU LETTER UU
+u = "𑤐"   # DIVES AKURU LETTER NGA
+v = "𑥀"   # DIVES AKURU MEDIAL YA
+x = "𑤼"   # DIVES AKURU SIGN CANDRABINDU
+y = "𑤣"   # DIVES AKURU LETTER BHA
+"'" = "𑥆"   # DIVES AKURU END OF TEXT MARK
+"," = "𑤫"   # DIVES AKURU LETTER SSA
+"/" = "𑤦"   # DIVES AKURU LETTER YYA
+";" = "𑤒"   # DIVES AKURU LETTER CHA
+"[" = "𑤙"   # DIVES AKURU LETTER DDHA
+"]" = "𑤕"   # DIVES AKURU LETTER NYA

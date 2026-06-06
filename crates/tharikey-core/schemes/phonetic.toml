@@ -1,0 +1,143 @@
+# Dhivehi Phonetic keyboard layout.
+# Base + shift follow SIL Global's "Divehi Phonetic Basic" (Keyman basic_kbddiv1, MIT). Two deliberate
+# departures: ޱ NAA on `x` (the one Thaana letter SIL omits — Apple's Dhivehi-QWERTY puts it here too;
+# x's old × was legacy cruft, dropped), and ﷲ ALLAH ligature on Shift+F (SIL placement; common muscle
+# memory). ThariKey also adds: optional long-vowel double-tap, the rufiyaa sign, RTL bracket-flip, and
+# ﷽ BISMILLAH on backtick (a low-traffic key; common convention — used as a phrase-opener in letters).
+# Keys are labelled by US-QWERTY physical position. Modifiers are layers, not strings.
+
+[meta]
+id = "phonetic"
+name = "Thaana Phonetic"
+description = "Latin keys map to the Thaana letters they sound like."
+about = "Base and shift layers follow SIL Global's “Divehi Phonetic Basic” (Keyman basic_kbddiv1, MIT). ThariKey places ޱ NAA on x (the one letter SIL omits), ﷲ on ⇧F and ﷽ on the backtick key, and adds an optional long-vowel double-tap, the rufiyaa sign, and RTL bracket-flip."
+base = "thaana-common"   # inherits shared smart-quote + punctuation defaults
+input = "keys"
+output = "thaana"
+reversible = false
+version = "1.0"
+
+[layers.base]
+a = "ަ"   # ABAFILI
+s = "ސ"   # SEENU
+d = "ދ"   # DHAALU
+f = "ފ"   # FAAFU
+h = "ހ"   # HAA
+g = "ގ"   # GAAFU
+z = "ޒ"   # ZAVIYANI
+c = "ޗ"   # CHAVIYANI
+v = "ވ"   # VAAVU
+b = "ބ"   # BAA
+q = "ް"   # SUKUN
+w = "އ"   # ALIFU
+e = "ެ"   # EBEFILI
+r = "ރ"   # RAA
+y = "ޔ"   # YAA
+t = "ތ"   # THAA
+o = "ޮ"   # OBOFILI
+u = "ު"   # UBUFILI
+i = "ި"   # IBIFILI
+p = "ޕ"   # PAVIYANI
+l = "ލ"   # LAAMU
+j = "ޖ"   # JAVIYANI
+k = "ކ"   # KAAFU
+n = "ނ"   # NOONU
+m = "މ"   # MEEMU
+x = "ޱ"   # NAA (U+07B1) — the one letter SIL leaves unmapped; placed on x like Apple (x's old × was cruft)
+";" = "؛"   # U+061B Arabic semicolon (RTL-correct)
+"," = "،"   # U+060C Arabic comma (RTL-correct)
+"'" = "'"   # straight apostrophe (smart-quotes may replace it)
+"`" = "﷽"   # U+FDFD BISMILLAH (presentation form; one-shot insert — NFC-stable, see header note)
+"[" = "["   # bracket keys mapped in US positions; the bracket_flip transform mirror-swaps the OUTPUT
+"]" = "]"
+
+[layers.shift]
+a = "ާ"   # AABAAFILI
+s = "ށ"   # SHAVIYANI
+d = "ޑ"   # DAVIYANI
+f = "ﷲ"   # U+FDF2 ARABIC LIGATURE ALLAH — SIL placement (Shift+F); common muscle memory
+h = "ޙ"   # HHAA
+g = "ޣ"   # GHAINU
+z = "ޡ"   # ZO
+x = "ޘ"   # TTAA
+c = "ޝ"   # SHEENU
+v = "ޥ"   # WAAVU (loan)
+b = "ޞ"   # SAADHU
+q = "ޤ"   # QAAFU
+w = "ޢ"   # AINU
+e = "ޭ"   # EYBEYFILI
+r = "ޜ"   # ZAA
+y = "ޠ"   # TO
+t = "ޓ"   # TAVIYANI
+o = "ޯ"   # OABOAFILI
+u = "ޫ"   # OOBOOFILI
+i = "ީ"   # EEBEEFILI
+l = "ޅ"   # LHAVIYANI
+j = "ޛ"   # THAALU
+k = "ޚ"   # KHAA
+n = "ޏ"   # GNAVIYANI
+m = "ޟ"   # DAADHU
+"/" = "؟"   # U+061F Arabic question mark
+"'" = "\""  # straight double quote (smart-quotes may replace it)
+"[" = "{"   # brace keys (US positions); flip mirror-swaps the output
+"]" = "}"
+"9" = "("   # paren keys (US: Shift+9 / Shift+0); flip mirror-swaps the output
+"0" = ")"
+"4" = "$"   # Shift+4 — the rufiyaa transform substitutes "$" → ⃂ (toggleable); long-press → $ / €
+
+# Long-press variants: rare letters / alternates reachable by holding a key (IME surfaces a variant
+# panel; rendering deferred to the IMK layer). Variants are explicit inserts — they bypass transforms.
+[variants]
+"4" = ["$", "€"]     # hold Shift+4 -> literal currency signs (bypass the rufiyaa substitution)
+
+# Bracket-key flip is inherited from thaana-common (shared default). Bracket KEYS are mapped above
+# (US positions); the engine swaps the output for RTL ergonomics.
+
+# Smart-quote defaults are inherited from thaana-common (shared, aligned across schemes).
+
+# Option layer still reserved for directional marks (RLM/LRM/ZWNJ), ﷲ, etc. — TODO.
+
+# Toggleable nicety: tap a short-vowel key twice to get its long counterpart (the Shift form),
+# instead of reaching for Shift. All five share one rule name so the IME exposes a single on/off
+# setting. Off by default. SUKUN (q) has no long variant, so there is no rule for it.
+[[sequence]]
+name = "long-vowel-double-tap"
+desc = "a a -> AABAAFILI"
+label = "Long-vowel double-tap"
+description = "Tap a short-vowel key twice to type its long form (e.g. a a → ާ), instead of reaching for Shift."
+match = "a a"
+emit = "ާ"
+optional = true
+default = false
+
+[[sequence]]
+name = "long-vowel-double-tap"
+desc = "i i -> EEBEEFILI"
+match = "i i"
+emit = "ީ"
+optional = true
+default = false
+
+[[sequence]]
+name = "long-vowel-double-tap"
+desc = "u u -> OOBOOFILI"
+match = "u u"
+emit = "ޫ"
+optional = true
+default = false
+
+[[sequence]]
+name = "long-vowel-double-tap"
+desc = "e e -> EYBEYFILI"
+match = "e e"
+emit = "ޭ"
+optional = true
+default = false
+
+[[sequence]]
+name = "long-vowel-double-tap"
+desc = "o o -> OABOAFILI"
+match = "o o"
+emit = "ޯ"
+optional = true
+default = false

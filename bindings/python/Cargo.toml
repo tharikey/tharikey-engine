@@ -1,0 +1,14 @@
+[package]
+name = "tharikey-py"
+description = "Python (PyO3) binding for the ThariKey engine."
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+
+[lib]
+name = "tharikey"        # the Python import name; maturin builds tharikey.*.so
+crate-type = ["cdylib"]
+
+[dependencies]
+tharikey-core = { path = "../../crates/tharikey-core" }
+pyo3 = { version = "0.23", features = ["extension-module", "abi3-py39"] }

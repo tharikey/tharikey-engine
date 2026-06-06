@@ -1,0 +1,114 @@
+# Malé Latin — the official 1976 Dhivehi romanization (everyday subset).
+# A `text` scheme: type Latin, the abugida processor composes Thaana (consonant + fili, default
+# sukun, vowel carriers). Reversible — powers radheef Latin search and export.
+# Reference: docs/scheme-format.md, research on Malé Latin correspondences.
+
+[meta]
+id = "male-latin"
+name = "Malé Latin"
+description = "Type Dhivehi in the everyday 1976 romanization."
+about = "The official 1976 Malé Latin romanization: type in Latin and it composes Thaana — dh/th/sh/lh digraphs, gemination, prenasalisation, and corpus-derived word-final glottals. The everyday workhorse; reversible (lossy)."
+base = "thaana-common"   # inherits shared RTL punctuation + smart-quote defaults
+input = "text"
+output = "thaana"
+reversible = true
+lossy = true            # word-final glottals are many-to-one (rah & rash both -> ރަށް); not round-trip clean
+version = "1.0"
+reverse_exclude = ["c"] # c is a forward-only alias for ކ; ކ reverses to "k", not "c"
+
+[abugida]
+vowel_carrier = "އ"   # ALIFU — a standalone vowel = carrier + fili
+default_coda = "ް"    # SUKUN — a consonant with no following vowel takes this
+geminate = "އް"       # doubled consonant -> alifu+sukun + the consonant (raajje -> ރާއްޖެ)
+geminate_nasal = "ން" # ... except nasals use noonu+sukun (mamma -> މަންމަ)
+nasals = ["މ", "ނ"]   # MEEMU, NOONU
+# prenasalisation: ' drops the pending consonant's coda -> hus-noonu (dhan'du -> ދަނޑު). Confirmed by
+# the human transliteration corpus (politecat314/dhivehi-transliteration).
+prenasal_marker = "'"
+
+# ---------------------------------------------------------------------------
+# Coda orthography (Dhivehi-specific; corpus-derived): an ordered, first-match-wins context-rule list.
+# Each rule is [tok, pre, suf, emit] (see docs/scheme-format.md). pre/suf atoms: "vowel" | "consonant" |
+# "boundary" | a literal token | a set. emit: ["lookup",table] | "marker" | ["glide",letter] | ["fili",vowel].
+# Kept out of [abugida] (universal roles). Source corpus: politecat314/dhivehi-transliteration.
+# ---------------------------------------------------------------------------
+[coda]
+rules = [
+  # word-final "h" -> letter from the `glottal` lookup, by preceding vowel (rah -> ރަށް, ekeh -> އެކެއް)
+  ["h",  ["vowel"],     ["boundary"],  ["lookup", "glottal"]],
+  # word-final glide "iy" after a vowel nucleus -> thaa ތ + sukun (raiy -> ރަތް); "-ai"/medial "iy" left alone
+  ["iy", ["vowel"],     ["boundary"],  ["glide", "ތ"]],
+  # word-final "y" on a pending consonant -> that consonant + ee (dheny -> ދެނީ); no word ends in bare yaa
+  ["y",  ["consonant"], ["boundary"],  ["fili", "ee"]],
+  # medial "o"+"h"+consonant -> glottal ށ (stem-final glottal in a compound: kohfi -> ކޮށްފި). More
+  # specific than a/u/e+h, so it precedes the generic marker rule.
+  ["h",  ["o"],         ["consonant"], ["lookup", "glottal"]],
+  # medial "h" before a consonant -> the geminate marker އް (huhdha -> ހުއްދަ) — how humans write gemination
+  ["h",  ["vowel"],     ["consonant"], "marker"],
+]
+
+# `glottal`: preceding-vowel -> word-final glottal letter (a named lookup, referenced by ["lookup","glottal"]
+# above). ހް is illegal (only އ ށ ތ ނ ސ take a word-final sukun) and WHICH letter is predictable from the
+# preceding vowel, ≈90%/bucket, no lexicon: e/ey -> alifu (indefinite -eh, 97%); a/o/u/long-backs ->
+# shaviyani ށ (91-99%); i/ee -> thaa ތ (91%).
+[lookups.glottal]
+a = "ށ"
+aa = "ށ"
+o = "ށ"
+oa = "ށ"
+oo = "ށ"
+u = "ށ"
+e = "އ"
+ey = "އ"
+i = "ތ"
+ee = "ތ"
+
+# Latin token -> base consonant. Digraphs (dh/th/sh/lh/gn/ch) win via longest-match over d/t/s/l/g/c.
+[consonants]
+h = "ހ"    # HAA
+n = "ނ"    # NOONU
+r = "ރ"    # RAA
+b = "ބ"    # BAA
+k = "ކ"    # KAAFU
+v = "ވ"    # VAAVU
+m = "މ"    # MEEMU
+f = "ފ"    # FAAFU
+l = "ލ"    # LAAMU
+g = "ގ"    # GAAFU
+s = "ސ"    # SEENU
+z = "ޒ"    # ZAVIYANI
+y = "ޔ"    # YAA
+p = "ޕ"    # PAVIYANI
+j = "ޖ"    # JAVIYANI
+d = "ޑ"    # DAVIYANI
+t = "ޓ"    # TAVIYANI
+sh = "ށ"   # SHAVIYANI
+lh = "ޅ"   # LHAVIYANI
+dh = "ދ"   # DHAALU
+th = "ތ"   # THAA
+gn = "ޏ"   # GNAVIYANI
+ch = "ޗ"   # CHAVIYANI (digraph wins over c via longest-match)
+# Standalone "c" is loanword-only. Default to KAAFU (corpus majority, ~64%). The English soft-c rule
+# (c before e/i/y -> ސ SEENU; else ކ) is ~95%/bucket in the corpus but needs a contextual-consonant
+# feature the token map can't express — deferred (loanword scope).
+c = "ކ"    # KAAFU (default for standalone c)
+q = "ޤ"    # QAAFU  (Arabic-loan qaaf, e.g. ޤުރުއާން)
+w = "ޥ"    # WAAVU  (Arabic-loan waaw; distinct from v -> ވ VAAVU)
+kh = "ޚ"   # KHAA   (Arabic-loan)
+gh = "ޣ"   # GHAINU (Arabic-loan)
+dn = "ޱ"   # NAA (U+07B1) — tentative romanisation, per project owner
+
+# Latin token -> fili (dependent vowel). Long vowels are digraphs (Malé Latin convention).
+[vowels]
+a = "ަ"     # ABAFILI
+aa = "ާ"    # AABAAFILI
+i = "ި"     # IBIFILI
+ee = "ީ"    # EEBEEFILI
+u = "ު"     # UBUFILI
+oo = "ޫ"    # OOBOOFILI
+e = "ެ"     # EBEFILI
+ey = "ޭ"    # EYBEYFILI
+o = "ޮ"     # OBOFILI
+oa = "ޯ"    # OABOAFILI
+
+# [literals] (incl. "$" → rufiyaa and RTL punctuation) are inherited from thaana-common.

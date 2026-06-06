@@ -1,0 +1,17 @@
+[package]
+name = "tharikey-c"
+description = "C ABI binding for the ThariKey engine — the reusable native substrate (Swift, C++, Android JNI)."
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+
+[lib]
+name = "tharikey"
+# staticlib for direct linking (the macOS IME / C++), cdylib for dlopen-style consumers.
+crate-type = ["staticlib", "cdylib"]
+
+[dependencies]
+tharikey-core = { path = "../../crates/tharikey-core" }
+
+[build-dependencies]
+cbindgen = "0.27"

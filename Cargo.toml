@@ -1,0 +1,27 @@
+# `tharikey-engine` is the umbrella repo, a Cargo **workspace** (it ships no package of its own).
+# Two trees, answering two different questions:
+#   crates/   — portable Rust libraries (pure-Rust deps; `cargo test`; the things we'd publish to
+#               crates.io): tharikey-core (transliteration/keymap). (Suggestions/spell-check are an
+#               orthogonal, host-fed concern → their own `tharikey-suggest` repo, much later.)
+#   bindings/ — foreign-language package roots. Each wraps the core via FFI but its real deliverable is
+#               a non-Rust artifact built by a non-cargo tool: python → wheel (maturin), wasm → npm pkg
+#               (wasm-pack), c → header + xcframework (cbindgen / cargo-swift). Kept separate because
+#               their release pipelines are nothing like the cargo-publish jobs for the libs.
+[workspace]
+resolver = "2"
+# Default dev loop = the pure-Rust libs (cargo test/build/run target these). Bindings are excluded:
+# they're built with their own tools and `cargo test` can't link the pyo3 cdylib standalone — CI checks
+# them with `cargo check -p …` instead (see the Makefile). `cargo run` still resolves the single
+# `tharikey` bin (only tharikey-core has one).
+members = ["crates/*", "bindings/*"]
+default-members = ["crates/tharikey-core"]
+
+# Workspace-level profiles (only the root manifest's profiles take effect across the workspace).
+# Tuned for size: `opt-level = "z"` + `lto` + a single codegen unit shrink every release artifact (the
+# wasm consumers download, the C static lib the IME embeds). The engine is human-cadence (keystrokes /
+# one-shot transliterate), so trading peak throughput for size is free here.
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+strip = true

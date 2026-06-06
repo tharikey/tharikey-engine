@@ -1,0 +1,101 @@
+# Áletinu — "New Dhivehi Latin", a strict one-sound-one-letter romanization.
+#
+# ⚠️ EXPERIMENTAL / LIMITED. Forward (Latin -> Thaana) and reverse (Thaana -> Áletinu) both work for
+# common words. Gemination is implemented. Known limits (lossy=true): prenasalisation ('mb/'nd/…) not
+# built; `æ` (-> ައި) doesn't round-trip; the gemination `އް`+C vs glottal `q`+C overlap is resolved as
+# gemination on reverse; consonants with alternate spellings collapse to one form. Treat as a preview.
+#
+# Attribution: proposed by *thatmaldivesblog* ("New Dhivehi Latin", 7 June 2016,
+# https://thatmaldivesblog.wordpress.com/2016/06/07/new-dhivehi-latin/). No explicit license stated;
+# re-encoded here as facts/inspiration with attribution. A `text` scheme: type Latin, the abugida
+# processor composes Thaana. Case-insensitive (input is case-folded).
+
+[meta]
+id = "aletinu"
+name = "Áletinu — experimental"
+description = "Experimental “New Dhivehi Latin” romanization."
+about = "An experimental take on the “New Dhivehi Latin” (Áletinu) proposal (thatmaldivesblog, 2016). Forward and reverse, with known gaps — not for production use."
+base = "thaana-common"   # inherits shared RTL punctuation + smart-quote defaults
+input = "text"
+output = "thaana"
+reversible = true
+lossy = true          # alternate spellings, æ, and the gemination/glottal overlap don't all round-trip
+version = "1.0"
+
+[abugida]
+vowel_carrier = "އ"   # ALIFU — a standalone vowel = carrier + fili
+default_coda = "ް"    # SUKUN — a word-final consonant takes this
+geminate = "އް"       # doubled consonant -> alifu+sukun + consonant (Bappa -> ބައްޕަ)
+geminate_nasal = "ން" # nasals use noonu+sukun (Mamma -> މަންމަ)
+nasals = ["މ", "ނ"]   # MEEMU, NOONU
+
+# No [coda] block: Áletinu's glottal is a context-free key, the [literal] q = "އް" (below). Forward emits
+# it verbatim; reverse reads `އް` -> "q" back from that literal (the marker fallback in reverse()).
+
+[consonants]
+h = "ހ"    # HAA
+x = "ށ"    # SHAVIYANI
+n = "ނ"    # NOONU
+r = "ރ"    # RAA
+b = "ބ"    # BAA
+"ł" = "ޅ"  # LHAVIYANI
+k = "ކ"    # KAAFU
+v = "ވ"    # VAAVU
+m = "މ"    # MEEMU
+f = "ފ"    # FAAFU
+"ð" = "ދ"  # DHAALU  (eth)
+"þ" = "ތ"  # THAA    (thorn)
+l = "ލ"    # LAAMU
+g = "ގ"    # GAAFU
+"ñ" = "ޏ"  # GNAVIYANI
+s = "ސ"    # SEENU
+d = "ޑ"    # DAVIYANI
+z = "ޒ"    # ZAVIYANI
+t = "ޓ"    # TAVIYANI
+y = "ޔ"    # YAA
+p = "ޕ"    # PAVIYANI
+j = "ޖ"    # JAVIYANI
+c = "ޗ"    # CHAVIYANI
+# Arabic-origin (primary forms; alternates below)
+"ħ" = "ޙ"  # HHAA
+"ĥ" = "ޚ"  # KHAA
+"ŕ" = "ޜ"  # ZAA
+"ġ" = "ޣ"  # GHAINU
+w = "ޥ"    # WAAVU (loan)
+"ď" = "ޛ"  # THAALU
+"š" = "ޘ"  # TTAA
+"ţ" = "ޠ"  # TO
+"ŧ" = "ޡ"  # ZO
+"ĝ" = "ޤ"  # QAAFU
+"ŝ" = "ޝ"  # SHEENU
+"ş" = "ޞ"  # SAADHU
+"ś" = "ޟ"  # DAADHU
+"'" = "ޢ"  # AINU (apostrophe)
+# alternates (same outputs)
+"ž" = "ޜ"
+"ż" = "ޛ"
+"ť" = "ޘ"
+"ø" = "ޢ"
+"ů" = "ޢ"
+
+[vowels]
+a = "ަ"     # ABAFILI
+"á" = "ާ"   # AABAAFILI
+"ā" = "ާ"   # (macron alt)
+i = "ި"     # IBIFILI
+"í" = "ީ"   # EEBEEFILI
+"ī" = "ީ"
+u = "ު"     # UBUFILI
+"ú" = "ޫ"   # OOBOOFILI
+"ū" = "ޫ"
+e = "ެ"     # EBEFILI
+"é" = "ޭ"   # EYBEYFILI
+"ē" = "ޭ"
+o = "ޮ"     # OBOFILI
+"ó" = "ޯ"   # OABOAFILI
+"ō" = "ޯ"
+"æ" = "ައި" # special vowel: ABAFILI + ALIFU + IBIFILI  (e.g. Fæ -> ފައި)
+
+[literals]
+q = "އް"    # glottal stop / sukun-on-alifu: ALIFU + SUKUN  (e.g. Boq -> ބޮއް)
+"$" = "⃂"   # RUFIYAA SIGN (U+20C2) — replaces $

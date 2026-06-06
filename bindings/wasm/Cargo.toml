@@ -1,0 +1,21 @@
+[package]
+name = "tharikey-wasm"
+description = "WASM / JS-TS binding for the ThariKey engine."
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+tharikey-core = { path = "../../crates/tharikey-core" }
+wasm-bindgen = "0.2"
+
+# Optimize the shipped .wasm for size — third-party consumers download this. `-Oz` (binaryen) post-
+# processes the wasm-pack output; it's a size pass only, so it never touches the native/IME build profile.
+# `--enable-bulk-memory`: release builds strip the `target_features` section that wasm-opt reads to
+# auto-detect features, so we must enable bulk-memory explicitly (Rust emits `memory.copy` by default)
+# or the `-Oz` validator rejects the input.
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = ["-Oz", "--enable-bulk-memory"]

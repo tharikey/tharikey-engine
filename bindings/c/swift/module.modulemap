@@ -1,0 +1,6 @@
+// Exposes the cbindgen-generated C header to Swift as the `TharikeyC` module.
+// The app's build links libtharikey.a and adds this dir + ../include to the header search path.
+module TharikeyC {
+    header "../include/tharikey.h"
+    export *
+}

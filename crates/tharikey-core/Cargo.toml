@@ -1,0 +1,23 @@
+[package]
+name = "tharikey-core"
+description = "ThariKey core — a small, data-driven Thaana transliteration / keymap engine. Schemes are TOML."
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/kudanai/tharikey-engine"
+
+[lib]
+# `lib` for tests/consumers; staticlib/cdylib are added by the binding crates (bindings/*), not here,
+# so the pure-Rust core stays a plain rlib with a minimal dep tree (serde + basic-toml).
+crate-type = ["lib"]
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+# Deserialize-only TOML parser. The engine never *serializes* TOML (hosts author it — the macOS app uses
+# TOMLKit), so we avoid the full `toml` crate's edit model (toml_edit + winnow + indexmap + toml_write),
+# which is the dominant weight in the wasm/native artifacts. `basic-toml` is a lean spec parser over serde.
+basic-toml = "0.1"
+
+[[bin]]
+name = "tharikey"
+path = "src/bin/cli.rs"

@@ -1,0 +1,73 @@
+# ISO 15919 — the scholarly Indic-standard romanization of Thaana/Dhivehi (single letters + diacritics;
+# long vowels as macrons, retroflexes as dots-below). Reversible — Thaana → ISO 15919 is the useful
+# direction (academic romanisation). This is the legit, sourced answer to "SAMT": SAMT itself was
+# deleted from Wikipedia in 2022 as unverifiable; ISO 15919 is IAST's modern successor that actually
+# covers Thaana.
+#
+# Source: the ISO 15919 column of https://en.wikipedia.org/wiki/Romanization_of_Dhivehi (Romero-Frías).
+# Known gaps: the Arabic-loanword (thiki) consonants ޘ–ޢ are NOT in the documented table, and their
+# scholarly ALA-LC forms (ṣ/ṭ/…) would collide with ISO 15919's native ṣ (ށ) / ṭ (ޓ) — so they're left
+# out for reversibility (same gap as Malé Latin; thiki are religious/Arabic-text territory). lossy=true
+# because of that + the gemination/glottal overlap.
+
+[meta]
+id = "iso15919"
+name = "ISO 15919 (scholarly)"
+description = "The academic ISO 15919 transliteration standard."
+about = "ISO 15919 academic transliteration — the Indic standard succeeding IAST — per the Romanization of Maldivian tables (Romero-Frías). Single letters with diacritics; reversible (lossy). For scholarly Thaana↔Latin reading."
+base = "thaana-common"   # inherits RTL punctuation + smart-quote defaults
+input = "text"
+output = "thaana"
+reversible = true
+lossy = true
+version = "1.0"
+
+[abugida]
+vowel_carrier = "އ"   # ALIFU — standalone vowel = carrier + fili
+default_coda = "ް"    # SUKUN
+geminate = "އް"       # doubled consonant -> alifu+sukun + consonant
+geminate_nasal = "ން" # nasals use noonu+sukun
+nasals = ["ނ", "މ"]   # NOONU, MEEMU
+
+# No [coda] block: the glottal stop ʾ (U+02BE) is a context-free key, the [literal] ʾ = "އް" (below).
+# Forward emits it verbatim; reverse reads `އް` -> "ʾ" back from that literal (the marker fallback).
+
+[consonants]
+h = "ހ"    # HAA
+"ṣ" = "ށ"  # SHAVIYANI (ISO uses ṣ for the native retroflex sibilant)
+n = "ނ"    # NOONU
+r = "ރ"    # RAA
+b = "ބ"    # BAA
+"ḷ" = "ޅ"  # LHAVIYANI
+k = "ކ"    # KAAFU
+v = "ވ"    # VAAVU
+m = "މ"    # MEEMU
+f = "ފ"    # FAAFU
+d = "ދ"    # DHAALU (dental d)
+t = "ތ"    # THAA  (dental t)
+l = "ލ"    # LAAMU
+g = "ގ"    # GAAFU
+"ñ" = "ޏ"  # GNAVIYANI
+s = "ސ"    # SEENU
+"ḍ" = "ޑ"  # DAVIYANI (retroflex)
+z = "ޒ"    # ZAVIYANI
+"ṭ" = "ޓ"  # TAVIYANI (retroflex)
+y = "ޔ"    # YAA
+p = "ޕ"    # PAVIYANI
+j = "ޖ"    # JAVIYANI
+c = "ޗ"    # CHAVIYANI
+
+[vowels]
+a = "ަ"     # ABAFILI
+"ā" = "ާ"   # AABAAFILI
+i = "ި"     # IBIFILI
+"ī" = "ީ"   # EEBEEFILI
+u = "ު"     # UBUFILI
+"ū" = "ޫ"   # OOBOOFILI
+e = "ެ"     # EBEFILI
+"ē" = "ޭ"   # EYBEYFILI
+o = "ޮ"     # OBOFILI
+"ō" = "ޯ"   # OABOAFILI
+
+[literals]
+"ʾ" = "އް"  # glottal stop -> ALIFU + SUKUN

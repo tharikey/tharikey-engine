@@ -1,0 +1,96 @@
+# Dhivehi Typewriter keyboard layout — the standard MV typewriter arrangement (fili on the left,
+# consonants on the right). Base + shift match SIL Global's "Divehi Typewriter Basic" (Keyman
+# basic_kbddiv2, MIT) byte-for-byte. ThariKey deviates only in: the rufiyaa sign on Shift+4 (Keyman has
+# $), the RTL bracket-flip convention, and no AltGr layer. Re-encoded facts (key positions aren't
+# copyrightable). Keys labelled by US-QWERTY physical position. Modifiers are layers.
+#
+# Note: unlike Phonetic, the long vowels here have their own BASE keys (q e r t /), so there is no
+# double-tap nicety. ' = ﷲ is from the source layout. ޱ NAA has no home — reserve the opt layer.
+
+[meta]
+id = "typewriter"
+name = "Thaana Typewriter"
+description = "The classic Thaana typewriter key arrangement."
+about = "Follows SIL Global's “Divehi Typewriter Basic” (Keyman basic_kbddiv2, MIT), cross-checked against existing implementations — filis on the left hand, consonants on the right. ThariKey differs only in the rufiyaa sign on ⇧4 and RTL bracket-flip."
+base = "thaana-common"   # inherits shared smart-quote + punctuation defaults
+input = "keys"
+output = "thaana"
+reversible = false
+version = "1.0"
+
+[layers.base]
+q = "ޫ"   # OOBOOFILI
+w = "ޮ"   # OBOFILI
+e = "ާ"   # AABAAFILI
+r = "ީ"   # EEBEEFILI
+t = "ޭ"   # EYBEYFILI
+y = "ގ"   # GAAFU
+u = "ރ"   # RAA
+i = "މ"   # MEEMU
+o = "ތ"   # THAA
+p = "ހ"   # HAA
+"[" = "ލ"  # LAAMU (the [ key is a letter here; brackets live on ] and \)
+"]" = "]"   # US close; bracket_flip (from common) swaps -> [ open  (right key = open, RTL)
+"\\" = "["  # US open;  flip swaps -> ] close
+a = "ި"   # IBIFILI
+s = "ު"   # UBUFILI
+d = "ް"   # SUKUN
+f = "ަ"   # ABAFILI
+g = "ެ"   # EBEFILI
+h = "ވ"   # VAAVU
+j = "އ"   # ALIFU
+k = "ނ"   # NOONU
+l = "ކ"   # KAAFU
+";" = "ފ"  # FAAFU
+"'" = "ﷲ"  # Allah ligature (U+FDF2) — from source layout
+z = "ޒ"   # ZAVIYANI
+x = "ޑ"   # DAVIYANI
+c = "ސ"   # SEENU
+v = "ޔ"   # YAA
+b = "ޅ"   # LHAVIYANI
+n = "ދ"   # DHAALU
+m = "ބ"   # BAA
+"," = "ށ"  # SHAVIYANI
+"." = "ޓ"  # TAVIYANI
+"/" = "ޯ"  # OABOAFILI
+
+[layers.shift]
+q = "×"
+w = "’"   # U+2019
+e = "“"   # U+201C
+r = "/"
+t = ":"
+y = "ޤ"   # QAAFU
+u = "ޜ"   # ZAA
+i = "ޣ"   # GHAINU
+o = "ޠ"   # TO
+p = "ޙ"   # HHAA
+"[" = "÷"
+"]" = "}"   # US close brace; flip -> { open  (consistent: ] key = open)
+"\\" = "{"  # US open brace;  flip -> } close
+a = "<"
+s = ">"
+d = "."
+f = "،"   # U+060C Arabic comma
+g = "\""
+h = "ޥ"   # WAAVU (loan)
+j = "ޢ"   # AINU
+k = "ޘ"   # TTAA
+l = "ޚ"   # KHAA
+";" = "ޡ"  # ZO
+"'" = "؛"  # U+061B Arabic semicolon
+z = "ޖ"   # JAVIYANI
+x = "ޕ"   # PAVIYANI
+c = "ޏ"   # GNAVIYANI
+v = "ޗ"   # CHAVIYANI
+b = "ޟ"   # DAADHU
+n = "ޛ"   # THAALU
+m = "ޝ"   # SHEENU
+"," = "\\"
+"." = "ޞ"  # SAADHU
+"/" = "؟"  # U+061F Arabic question mark
+"4" = "$"   # Shift+4 — the rufiyaa transform substitutes "$" → ⃂ (toggleable); long-press → $ / €
+
+# Long-press variants are explicit inserts — they bypass transforms (so these stay literal currency).
+[variants]
+"4" = ["$", "€"]   # hold Shift+4 -> literal currency signs (bypass the rufiyaa substitution)
