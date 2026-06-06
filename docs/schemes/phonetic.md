@@ -1,4 +1,6 @@
-# Phonetic
+---
+title: "Phonetic"
+---
 
 `phonetic` · **keys** · the common Dhivehi phonetic keyboard layout — letters sit on the Latin keys
 they sound like (`h → ހ`, `b → ބ`, `k → ކ`).

@@ -1,4 +1,6 @@
-# Bindings
+---
+title: "Bindings"
+---
 
 The core is owned and I/O-free, so the bindings are thin marshalling layers — never a reimplementation.
 Each exposes the **same full surface**: `transliterate` / `reverse`, scheme metadata + options + per-key
@@ -46,9 +48,10 @@ For live keyboard input the stateful `tk_session_feed` above drives a committed 
 returns `action: 3` (*needs context*) when a key could reach back, and `tk_session_resolve(s, key, layer,
 prefix)` matches the document text before the caret (see [the keys path](architecture.md#the-keys-path)).
 
-!!! info "Memory contract"
-    Every `char*` returned is **caller-owned** — free it with `tk_string_free`. Every `TkSession*` is
-    freed with `tk_session_free`. All functions are null-safe.
+:::note[Memory contract]
+Every `char*` returned is **caller-owned** — free it with `tk_string_free`. Every `TkSession*` is
+freed with `tk_session_free`. All functions are null-safe.
+:::
 
 ### Swift
 
@@ -62,10 +65,14 @@ let s = TharikeySession("phonetic")
 let r = s?.feed(key: "b", layer: "base")         // KeyResponse: .insert("ބ")  (or .passthrough / .replace)
 ```
 
-??? question "Why a C ABI?"
-    A C ABI is the universal native substrate — Swift, C++, and Android JNI all speak it, so one
-    interface serves them all with no per-language codegen. It's lean, has a stable inspectable header,
-    and keeps the throughput paths (bulk transliterate, dictionary search) fast.
+<details>
+<summary>Why a C ABI?</summary>
+
+A C ABI is the universal native substrate — Swift, C++, and Android JNI all speak it, so one
+interface serves them all with no per-language codegen. It's lean, has a stable inspectable header,
+and keeps the throughput paths (bulk transliterate, dictionary search) fast.
+
+</details>
 
 ### Custom schemes
 

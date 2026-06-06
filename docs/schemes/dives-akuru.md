@@ -1,4 +1,6 @@
-# Dives Akuru
+---
+title: "Dives Akuru"
+---
 
 `dives-akuru` · **keys** · a keyboard layout for the historic **Dives Akuru** script.
 
@@ -10,15 +12,17 @@ Multilingual Plane).
 This scheme emits Dives Akuru codepoints directly. It is re-encoded from the key/codepoint facts of
 Keyman's `dives_akuru_inscript` keyboard (© SIL Global, MIT-licensed).
 
-!!! info "Not a Thaana → Dives transliteration"
-    This is a **layout** — it maps physical keys to Dives Akuru letters, the same way the Phonetic and
-    Typewriter schemes map keys to Thaana. It does not convert Thaana into Dives Akuru. (That would need
-    conjunct formation and pre-base vowel reordering — a separate, harder problem.)
+:::note[Not a Thaana → Dives transliteration]
+This is a **layout** — it maps physical keys to Dives Akuru letters, the same way the Phonetic and
+Typewriter schemes map keys to Thaana. It does not convert Thaana into Dives Akuru. (That would need
+conjunct formation and pre-base vowel reordering — a separate, harder problem.)
+:::
 
-!!! warning "You need a Dives Akuru font"
-    The engine emits **logical-order codepoints**; turning them into correctly-shaped text — conjuncts,
-    reordered pre-base vowels — is the font and text shaper's job. Install a Dives Akuru font such as
-    **Noto Serif Dives Akuru**; macOS ships none, so without it you'll see tofu (□).
+:::caution[You need a Dives Akuru font]
+The engine emits **logical-order codepoints**; turning them into correctly-shaped text — conjuncts,
+reordered pre-base vowels — is the font and text shaper's job. Install a Dives Akuru font such as
+**Noto Serif Dives Akuru**; macOS ships none, so without it you'll see tofu (□).
+:::
 
 ## Layout (InScript)
 

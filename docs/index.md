@@ -1,4 +1,6 @@
-# ThariKey
+---
+title: "ThariKey"
+---
 
 **A small, data-driven Thaana transliteration & keymap engine.**
 
@@ -8,19 +10,21 @@ code (a C ABI for Swift, C++, and Android), the web (WebAssembly), and Python.
 
 <div class="tk-hero" markdown>
 
-=== "Transliterate"
+**Transliterate**
 
-    ```text
-    raajje      →  ރާއްޖެ
-    dhivehi     →  ދިވެހި
-    rah         →  ރަށް
-    ```
 
-=== "Type (keys)"
+```text
+raajje      →  ރާއްޖެ
+dhivehi     →  ދިވެހި
+rah         →  ރަށް
+```
 
-    ```text
-    b a s q     →  ބަސް   (Phonetic layout, q = sukun)
-    ```
+**Type (keys)**
+
+
+```text
+b a s q     →  ބަސް   (Phonetic layout, q = sukun)
+```
 
 </div>
 
@@ -60,7 +64,8 @@ See [bundled schemes](schemes/index.md) for the full list.
 
 [Prior art & references](references.md) has the full list.
 
-!!! note "Scope"
-    ThariKey is the **engine** — transliteration and keymaps. Lexical features (loanword spelling, a
-    dictionary) are deliberately out of scope, so the core stays small and deterministic; those belong
-    in a layer built on top.
+:::note[Scope]
+ThariKey is the **engine** — transliteration and keymaps. Lexical features (loanword spelling, a
+dictionary) are deliberately out of scope, so the core stays small and deterministic; those belong
+in a layer built on top.
+:::

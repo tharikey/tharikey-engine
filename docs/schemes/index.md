@@ -1,4 +1,6 @@
-# Bundled schemes
+---
+title: "Bundled schemes"
+---
 
 Seven schemes ship embedded in the engine. Two are **keyboard layouts** (`keys`) and five are
 **romanizations** (`text`). `thaana-common` is a shared base fragment (RTL punctuation + the shared

@@ -1,4 +1,6 @@
-# Malé Latin
+---
+title: "Malé Latin"
+---
 
 `male-latin` · **text** · reversible (lossy) · the everyday 1976 romanization — the transliteration
 workhorse. Type Latin, the abugida processor composes Thaana.

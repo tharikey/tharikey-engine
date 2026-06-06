@@ -1,4 +1,6 @@
-# Engine architecture
+---
+title: "Engine architecture"
+---
 
 The engine is deliberately small. Two paths share one model: a one-shot **text** path (romanization)
 and a stateful **keys** path (live keyboard input).
@@ -98,12 +100,13 @@ a more-specific rule keeps the `koh`-family stem-glottal correct (`o { h } conso
 Together these reach **≈56% word-level exact match** (per-occurrence) against the 290k-pair human
 corpus — deterministically, with no shipped data.
 
-!!! note "What's *not* chased"
-    The residual is genuinely lexical/morphological — lexicalised stem changes (`mas → maheh`), loanword
-    spellings, and morpheme-boundary cases a rule can't see (`a + h` compounds like `rahthah`, Arabic
-    names like `mahloof`). That's left to a consumer-side radheef pass — the engine stays small and
-    deterministic. The Malé Latin standard itself concedes this ceiling (the "disappeared" letter only
-    returns "when the word is joined or used in full").
+:::note[What's *not* chased]
+The residual is genuinely lexical/morphological — lexicalised stem changes (`mas → maheh`), loanword
+spellings, and morpheme-boundary cases a rule can't see (`a + h` compounds like `rahthah`, Arabic
+names like `mahloof`). That's left to a consumer-side radheef pass — the engine stays small and
+deterministic. The Malé Latin standard itself concedes this ceiling (the "disappeared" letter only
+returns "when the word is joined or used in full").
+:::
 
 ## Rewrites — an optional post-correction layer (FST-inspired)
 
@@ -118,11 +121,12 @@ The bundled **`male-latin-corpus`** is `base = "male-latin"` + such a block (99 
 word-exact on a held-out split** over the hand-curated baseline — *generalising*, so it stays
 **lexicon-free**. It's the corpus-tuned sibling of the principled `male-latin`.
 
-!!! note "Why 'FST-inspired', not 'an FST'"
-    A list of context-rewrites is *compile-equivalent* to a finite-state transducer (foma/ICU compile
-    one; cvutils ships exactly this choice — a longest-match table or a foma FST). The engine runs the
-    **rewrite cascade directly** rather than compiling to a state machine — simpler, debuggable,
-    dependency-free, and authorable as plain data. So the honest name is `rewrites`.
+:::note[Why 'FST-inspired', not 'an FST']
+A list of context-rewrites is *compile-equivalent* to a finite-state transducer (foma/ICU compile
+one; cvutils ships exactly this choice — a longest-match table or a foma FST). The engine runs the
+**rewrite cascade directly** rather than compiling to a state machine — simpler, debuggable,
+dependency-free, and authorable as plain data. So the honest name is `rewrites`.
+:::
 
 ## Reverse
 

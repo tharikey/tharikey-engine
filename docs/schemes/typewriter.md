@@ -1,4 +1,6 @@
-# Typewriter
+---
+title: "Typewriter"
+---
 
 `typewriter` · **keys** · the standard Maldivian typewriter arrangement — **filis on the left hand,
 consonants on the right**, as on the mechanical machines.

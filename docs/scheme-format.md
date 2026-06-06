@@ -1,4 +1,6 @@
-# Scheme format
+---
+title: "Scheme format"
+---
 
 A scheme is a single TOML file. It is **our own format** — not an interop target — chosen to be
 human-authorable and comment-friendly. Two input kinds share one model.

@@ -1,4 +1,6 @@
-# Getting started
+---
+title: "Getting started"
+---
 
 ThariKey is a Cargo workspace (`tharikey-engine`); the engine itself is the `tharikey-core` crate, with
 thin language bindings around it. The schemes are embedded in the binary, so there is nothing to install

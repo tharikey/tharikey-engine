@@ -1,4 +1,6 @@
-# Malé Latin (corpus)
+---
+title: "Malé Latin (corpus)"
+---
 
 `male-latin-corpus` · **text** · not reversible · the everyday Malé Latin romanization plus a
 data-mined correction layer. Higher word-accuracy than [`male-latin`](male-latin.md), at the cost of a

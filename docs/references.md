@@ -1,4 +1,6 @@
-# Prior art & references
+---
+title: "Prior art & references"
+---
 
 Where ThariKey's design, schemes, and data come from.
 
@@ -55,6 +57,7 @@ The `text` schemes follow scheme-based Indic romanization:
 - **[CLDR](https://github.com/unicode-org/cldr)** — the RTL quote conventions and Latin–Thaana transform
   behind the shared `thaana-common` defaults.
 
-!!! note "On attribution"
-    Keyboard layouts (key positions) are facts, not creative works, and are re-encoded as such. Sources
-    that carry a licence or request attribution are named above and in the scheme files.
+:::note[On attribution]
+Keyboard layouts (key positions) are facts, not creative works, and are re-encoded as such. Sources
+that carry a licence or request attribution are named above and in the scheme files.
+:::

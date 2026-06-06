@@ -1,4 +1,6 @@
-# Áletinu
+---
+title: "Áletinu"
+---
 
 `aletinu` · **text** · reversible (lossy) · **experimental.**
 
@@ -7,9 +9,10 @@
 re-encoded here with attribution. It leans on diacritic letters so every Thaana consonant and vowel has
 a single, unambiguous spelling.
 
-!!! warning "Preview"
-    Treat Áletinu as a preview. Gemination works; **prenasalisation is not built**, `æ → ައި` doesn't
-    round-trip, and a few consonants with alternate spellings collapse to one form on reverse.
+:::caution[Preview]
+Treat Áletinu as a preview. Gemination works; **prenasalisation is not built**, `æ → ައި` doesn't
+round-trip, and a few consonants with alternate spellings collapse to one form on reverse.
+:::
 
 ## Consonants
 

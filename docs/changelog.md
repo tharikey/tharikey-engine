@@ -1,21 +1,10 @@
-# Changelog
-
-## Unreleased
-
-**Schemes**
-
-- **Runtime scheme registry.** A host can register custom / third-party schemes at runtime
-  (`register_scheme(id, toml)`) — the *same* TOML format as bundled schemes (no second standard),
-  resolved through the same `base` inheritance, working everywhere a bundled id does (listing, sessions,
-  key output). The registry is process-global and **ephemeral** (the engine still does no I/O — the host
-  owns persistence and re-hydration); ids are collision-checked against built-ins and each other. The
-  engine only resolves/reports — it does **not** author schemes; the host builds the scheme TOML (same
-  format) and registers it. Exposed across the C ABI (`tk_scheme_register` / `tk_scheme_unregister` /
-  `tk_scheme_clear_custom` / `tk_scheme_is_custom`) and the Swift wrapper.
+---
+title: "Changelog"
+---
 
 ## 0.1.0
 
-The first release of the ThariKey engine.
+The initial ThariKey engine.
 
 **Transliteration**
 
@@ -36,6 +25,11 @@ The first release of the ThariKey engine.
 - Seven bundled schemes: Phonetic, Typewriter, Dives Akuru (keys); Malé Latin, Malé Latin (corpus),
   Áletinu, ISO 15919 (text).
 - Schemes are TOML, resolved into a typed model where illegal states are unrepresentable.
+- **Runtime custom-scheme registry**: a host can register custom / third-party schemes at runtime —
+  the same TOML format as bundled (no second standard), the same `base` inheritance, working everywhere
+  a bundled id does (listing, sessions, key output). Process-global and ephemeral (the engine stays
+  I/O-free; the host owns persistence and re-hydration); ids are collision-checked. The engine resolves
+  and reports — it never authors schemes.
 - Stateful keyboard sessions with modifier layers, long-press variants, optional sequence rules, and a
   toggleable `[transforms]` layer — smart quotes, RTL bracket flip, and the `$`→rufiyaa substitution
   (long-press for the literal `$` / `€`). Explicit inserts bypass transforms.
@@ -47,4 +41,5 @@ The first release of the ThariKey engine.
 **Bindings**
 
 - A C ABI (native — Swift, C++, Android JNI) with a thin Swift wrapper.
-- Python (PyO3) and WebAssembly (wasm-bindgen) bindings.
+- Python (PyO3)  
+- WebAssembly (wasm-bindgen) bindings.
