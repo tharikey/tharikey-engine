@@ -4,7 +4,7 @@ description = "ThariKey core — a small, data-driven Thaana transliteration / k
 version = "0.1.0"
 edition = "2021"
 license = "MIT"
-repository = "https://github.com/kudanai/tharikey-engine"
+repository = "https://github.com/tharikey/tharikey-engine"
 
 [lib]
 # `lib` for tests/consumers; staticlib/cdylib are added by the binding crates (bindings/*), not here,
