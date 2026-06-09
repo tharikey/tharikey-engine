@@ -20,7 +20,7 @@ default-members = ["crates/tharikey-core"]
 # via `*.workspace = true`. A release bumps this single `version` (see scripts/bump-version.sh), which
 # drives the git tag and every published artifact.
 [workspace.package]
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 license = "MIT"
 repository = "https://github.com/tharikey/tharikey-engine"

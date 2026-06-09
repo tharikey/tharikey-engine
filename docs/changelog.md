@@ -2,11 +2,7 @@
 title: "Changelog"
 ---
 
-## 0.1.1
-
-- CI Release check for 0.1.1. No changes to the core.
-
-## 0.1.0
+## 0.1.2
 
 The initial ThariKey engine.
 
