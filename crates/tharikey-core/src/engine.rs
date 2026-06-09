@@ -352,7 +352,7 @@ pub fn reverse(scheme: &Scheme, input: &str) -> Option<String> {
     let nasals: std::collections::HashSet<String> = ab.nasals.iter().cloned().collect();
     let coda_rules = &t.coda;
     // Reverse maps are derived from the forward rules. The glottal romanisation (word-final `އް` -> this,
-    // e.g. "h") is the `tok` of the first `Emit::Glottal` coda rule; glide letters read back as the `tok`
+    // e.g. "h") is the `tok` of the first `Emit::Lookup` coda rule; glide letters read back as the `tok`
     // of their `Emit::Glide` rule. Fallback: schemes whose glottal is a context-free `[literal]` (Áletinu
     // `q`, ISO 15919 `ʾ`) have no coda rule — read it back from the literal that outputs the marker `އް`.
     let final_glottal_latin = coda_rules
