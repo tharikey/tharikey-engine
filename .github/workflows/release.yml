@@ -35,7 +35,8 @@ jobs:
     if: needs.check.outputs.new == 'true'
     runs-on: ubuntu-latest
     permissions:
-      contents: write # to push the tag
+      contents: write # push the tag
+      id-token: write # OIDC for npm Trusted Publishing (no stored token)
     steps:
       - uses: actions/checkout@v4
       - name: Tag v${{ needs.check.outputs.version }}
@@ -53,7 +54,9 @@ jobs:
         with:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
+      - name: Update npm (Trusted Publishing needs npm >= 11.5)
+        run: npm install -g npm@latest
       - name: Publish @tharikey/engine
         run: bash bindings/wasm/publish.sh
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: 'true' # supply-chain attestation (OIDC + public repo)
