@@ -16,6 +16,15 @@ resolver = "2"
 members = ["crates/*", "bindings/*"]
 default-members = ["crates/tharikey-core"]
 
+# Shared package metadata — one version/edition/license/repo for the whole engine; every crate inherits
+# via `*.workspace = true`. A release bumps this single `version` (see scripts/bump-version.sh), which
+# drives the git tag and every published artifact.
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/tharikey/tharikey-engine"
+
 # Workspace-level profiles (only the root manifest's profiles take effect across the workspace).
 # Tuned for size: `opt-level = "z"` + `lto` + a single codegen unit shrink every release artifact (the
 # wasm consumers download, the C static lib the IME embeds). The engine is human-cadence (keystrokes /

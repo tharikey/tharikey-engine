@@ -72,8 +72,9 @@ tharikey-core = { git = "https://github.com/tharikey/tharikey-engine", package =
 pip install "git+https://github.com/tharikey/tharikey-engine.git#subdirectory=bindings/python"
 ```
 
-The **wasm** binding is built with `wasm-pack` (the website embeds it); the **C ABI** is a
-cbindgen-generated header + library consumed by the macOS app. See [`bindings/`](bindings/README.md).
+The **wasm** binding is published to npm as **`@tharikey/engine`** (`npm install @tharikey/engine`); the
+**C ABI** is a cbindgen-generated header + library consumed by the macOS app. See
+[`bindings/`](bindings/README.md).
 
 ## Features
 
@@ -86,4 +87,17 @@ cbindgen-generated header + library consumed by the macOS app. See [`bindings/`]
   variants (which bypass transforms).
 - **Scheme inheritance** (`base`) for aligned, shared defaults.
 
+## Releasing
+
+Cut from `main` (GitHub-flow — no `develop`). One `[workspace.package] version` drives the git tag and
+every published artifact; crates inherit it via `version.workspace = true`.
+
+1. **`scripts/bump-version.sh`** — verifies `main` is clean and in sync, prompts for the new version,
+   branches `release/x.y.z`, and bumps the workspace version.
+2. Add a `## x.y.z` entry to [`docs/changelog.md`](docs/changelog.md), then commit + push + open a PR
+   to `main`.
+3. On merge, CI ([`release.yml`](.github/workflows/release.yml)) tags `vx.y.z` and publishes
+   (`@tharikey/engine` → npm). Idempotent — it only fires when the version changed.
+
 License: MIT.
+

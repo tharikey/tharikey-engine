@@ -1,10 +1,10 @@
 [package]
 name = "tharikey-core"
 description = "ThariKey core — a small, data-driven Thaana transliteration / keymap engine. Schemes are TOML."
-version = "0.1.0"
-edition = "2021"
-license = "MIT"
-repository = "https://github.com/tharikey/tharikey-engine"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
 
 [lib]
 # `lib` for tests/consumers; staticlib/cdylib are added by the binding crates (bindings/*), not here,

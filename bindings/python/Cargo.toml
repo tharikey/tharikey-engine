@@ -1,9 +1,10 @@
 [package]
 name = "tharikey-py"
 description = "Python (PyO3) binding for the ThariKey engine."
-version = "0.1.0"
-edition = "2021"
-license = "MIT"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
 
 [lib]
 name = "tharikey"        # the Python import name; maturin builds tharikey.*.so

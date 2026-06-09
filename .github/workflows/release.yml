@@ -1,17 +1,49 @@
 name: Release
 
-# Publishes release artifacts on a version tag (e.g. v0.1.1). Bump the version in the relevant
-# Cargo.toml before tagging; the wasm publish is idempotent (skips if the version is already on npm).
+# Cut a release when a version bump lands on main. The bump arrives via a `release/x.y.z` PR
+# (scripts/bump-version.sh); on merge, if the workspace version isn't tagged yet, this tags it and
+# publishes the artifacts. Idempotent — ordinary merges to main are no-ops.
 on:
   push:
-    tags: ['v*']
+    branches: [main]
 
 jobs:
-  publish-wasm:
-    name: publish @tharikey/engine (npm)
+  check:
+    name: detect version bump
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.v.outputs.version }}
+      new: ${{ steps.v.outputs.new }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # need tags
+      - id: v
+        run: |
+          VERSION=$(grep -m1 '^version = ' Cargo.toml | cut -d'"' -f2)
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          if git rev-parse --verify -q "v$VERSION" >/dev/null; then
+            echo "new=false" >> "$GITHUB_OUTPUT"
+            echo "v$VERSION already tagged — nothing to release."
+          else
+            echo "new=true" >> "$GITHUB_OUTPUT"
+            echo "new version $VERSION — will tag + publish."
+          fi
+
+  release:
+    needs: check
+    if: needs.check.outputs.new == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # to push the tag
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tag v${{ needs.check.outputs.version }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag "v${{ needs.check.outputs.version }}"
+          git push origin "v${{ needs.check.outputs.version }}"
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: wasm32-unknown-unknown
@@ -21,7 +53,7 @@ jobs:
         with:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
-      - name: Build + publish
+      - name: Publish @tharikey/engine
         run: bash bindings/wasm/publish.sh
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
