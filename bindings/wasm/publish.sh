@@ -16,4 +16,12 @@ npm pkg set name='@tharikey/engine'
 npm pkg set keywords[0]=thaana keywords[1]=dhivehi keywords[2]=transliteration \
             keywords[3]=keyboard keywords[4]=ime keywords[5]=maldives
 
+# Idempotent: skip if this version is already on npm (so a release tag that doesn't bump the wasm
+# version is a no-op instead of a hard failure).
+VER=$(npm pkg get version | tr -d '"')
+if npm view "@tharikey/engine@${VER}" version >/dev/null 2>&1; then
+  echo "@tharikey/engine@${VER} already on npm — nothing to publish."
+  exit 0
+fi
+
 npm publish --access public

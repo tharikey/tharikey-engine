@@ -1,0 +1,27 @@
+name: Release
+
+# Publishes release artifacts on a version tag (e.g. v0.1.1). Bump the version in the relevant
+# Cargo.toml before tagging; the wasm publish is idempotent (skips if the version is already on npm).
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  publish-wasm:
+    name: publish @tharikey/engine (npm)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - uses: Swatinem/rust-cache@v2
+      - uses: jetli/wasm-pack-action@v0.4.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: 'https://registry.npmjs.org'
+      - name: Build + publish
+        run: bash bindings/wasm/publish.sh
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
