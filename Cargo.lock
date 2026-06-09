@@ -519,7 +519,7 @@ dependencies = [
 
 [[package]]
 name = "tharikey-c"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "cbindgen",
  "tharikey-core",
@@ -527,7 +527,7 @@ dependencies = [
 
 [[package]]
 name = "tharikey-core"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "basic-toml",
  "serde",
@@ -535,7 +535,7 @@ dependencies = [
 
 [[package]]
 name = "tharikey-py"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "pyo3",
  "tharikey-core",
@@ -543,7 +543,7 @@ dependencies = [
 
 [[package]]
 name = "tharikey-wasm"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "tharikey-core",
  "wasm-bindgen",
