@@ -1,9 +1,11 @@
 [package]
 name = "tharikey-wasm"
-description = "WASM / JS-TS binding for the ThariKey engine."
+description = "WASM / JS-TS binding for the ThariKey engine — Thaana (Dhivehi) transliteration & keyboard."
 version = "0.1.0"
 edition = "2021"
 license = "MIT"
+repository = "https://github.com/tharikey/tharikey-engine"
+homepage = "https://tharikey.com"
 
 [lib]
 crate-type = ["cdylib"]
