@@ -107,11 +107,12 @@ Built with maturin; used for the corpus work behind the engine's
 
 ## wasm
 
-Built with `wasm-pack` and embedded in this site's playground.
+Published to npm as **`@tharikey/engine`** (built with `wasm-pack`, bundler target). Powers this site's
+playground.
 
 ## Installing
 
-Rust and Python consume the engine straight from git (both build from source):
+Rust and Python build from source (Rust toolchain required); JavaScript installs the published package:
 
 ```toml
 # Rust — Cargo.toml
@@ -123,13 +124,18 @@ tharikey-core = { git = "https://github.com/tharikey/tharikey-engine", package =
 pip install "git+https://github.com/tharikey/tharikey-engine.git#subdirectory=bindings/python"
 ```
 
+```sh
+# JavaScript / TypeScript — published to npm, no build needed
+npm install @tharikey/engine
+```
+
 ### Distribution channels
 
 | Artifact | Channel |
 |----------|---------|
 | Rust `tharikey-core` | git dependency · crates.io *(planned)* |
 | Python `tharikey-py` | git · PyPI wheel *(planned)* |
-| wasm `tharikey-wasm` | npm — `@tharikey/engine-wasm` |
+| wasm `tharikey-wasm` | npm — `@tharikey/engine` |
 | C ABI `tharikey-c` | GitHub Release assets — header + universal lib + `.xcframework` (+ SwiftPM `binaryTarget`) |
 | Android | Maven Central — a JNI `.aar` over the C ABI *(planned)* |
 

@@ -67,6 +67,27 @@ for k in "basq":
 s.output()                                         # 'ބަސް'
 ```
 
+## JavaScript / TypeScript
+
+The wasm build is published to npm — no toolchain needed:
+
+```sh
+npm install @tharikey/engine
+```
+
+```js
+import { transliterate, reverse, Session } from '@tharikey/engine';
+
+transliterate('male-latin', 'raajje');   // 'ރާއްޖެ'
+reverse('male-latin', 'ދިވެހި');          // 'dhivehi'
+
+const s = new Session('phonetic');
+for (const k of ['b', 'a', 's']) s.feed(k, 'base');
+s.output();                              // 'ބަސް'
+```
+
+Built for bundlers (Vite, webpack, …). See [`@tharikey/engine`](https://www.npmjs.com/package/@tharikey/engine).
+
 ## Command line
 
 The crate ships a small CLI for quick checks:

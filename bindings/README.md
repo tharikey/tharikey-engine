@@ -21,6 +21,6 @@ contract: every returned `char*` is caller-owned (`tk_string_free`); every `TkSe
 `tk_session_free`; all functions are null-safe.
 
 **Distribution** (full table in [docs/bindings.md](../docs/bindings.md)): Rust + Python from **git**
-(crates.io / PyPI planned); **wasm** → npm `@tharikey/engine-wasm`; **C ABI** → GitHub Release assets
+(crates.io / PyPI planned); **wasm** → npm `@tharikey/engine`; **C ABI** → GitHub Release assets
 (header + universal lib + xcframework); **Android** → Maven `.aar` over the C ABI (planned). One engine
 version per git tag. Install commands: [getting-started](../docs/getting-started.md).
