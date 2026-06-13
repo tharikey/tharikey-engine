@@ -53,6 +53,13 @@ pub extern "C" fn tk_string_free(s: *mut c_char) {
     }
 }
 
+/// Engine version (the unified workspace version, e.g. "0.1.2"). Returns a **static**, NUL-terminated
+/// string that is NOT caller-owned — do not pass it to `tk_string_free`. Equals `tharikey_core::version()`.
+#[no_mangle]
+pub extern "C" fn tk_version() -> *const c_char {
+    concat!(env!("CARGO_PKG_VERSION"), "\0").as_ptr() as *const c_char
+}
+
 // ---------------------------------------------------------------------------
 // One-shot text transforms
 // ---------------------------------------------------------------------------

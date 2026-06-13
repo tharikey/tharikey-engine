@@ -49,6 +49,12 @@ pub fn reverse(scheme_id: &str, text: &str) -> Result<Option<String>, JsError> {
     Ok(core_reverse(&s, text))
 }
 
+/// Engine version (the unified workspace version, e.g. "0.1.2").
+#[wasm_bindgen]
+pub fn version() -> String {
+    tharikey_core::version().to_string()
+}
+
 // ---------------------------------------------------------------------------
 // Scheme metadata
 // ---------------------------------------------------------------------------

@@ -60,6 +60,12 @@ const BUNDLED: &[(&str, &str)] = &[
     ),
 ];
 
+/// The engine version — the unified workspace version (`[workspace.package] version`), inherited by
+/// every crate via `version.workspace = true`. Surfaced through the bindings for diagnostics.
+pub fn version() -> &'static str {
+    env!("CARGO_PKG_VERSION")
+}
+
 /// Ids of the bundled, *usable* schemes (excludes the `thaana-common` base fragment).
 pub fn bundled_scheme_ids() -> Vec<&'static str> {
     BUNDLED

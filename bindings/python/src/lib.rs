@@ -285,10 +285,17 @@ impl Session {
     }
 }
 
+/// Engine version (the unified workspace version, e.g. "0.1.2").
+#[pyfunction]
+fn version() -> &'static str {
+    tharikey_core::version()
+}
+
 #[pymodule]
 fn tharikey(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(transliterate, m)?)?;
     m.add_function(wrap_pyfunction!(reverse, m)?)?;
+    m.add_function(wrap_pyfunction!(version, m)?)?;
     m.add_function(wrap_pyfunction!(list_schemes, m)?)?;
     m.add_function(wrap_pyfunction!(scheme_info_py, m)?)?;
     m.add_function(wrap_pyfunction!(scheme_options, m)?)?;

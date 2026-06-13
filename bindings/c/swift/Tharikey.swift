@@ -25,6 +25,9 @@ public enum Tharikey {
         take(tk_reverse(schemeId, text))
     }
 
+    /// The engine (Rust core) version, e.g. "0.1.2" — for diagnostics. Backed by a static C string (no free).
+    public static var version: String { String(cString: tk_version()) }
+
     public struct SchemeInfo {
         public let id: String
         public let name: String
