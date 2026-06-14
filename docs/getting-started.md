@@ -14,6 +14,7 @@ Every binding exposes the same small surface:
 - `reverse(scheme_id, text)` — Thaana → Latin for a reversible scheme.
 - `list_schemes()` — the bundled, usable schemes.
 - `Session` — a stateful driver for a `keys` scheme (what an IME feeds key-by-key).
+- `version()` — the engine version string (the unified workspace version).
 
 ## Rust
 

@@ -24,6 +24,9 @@ The initial ThariKey engine.
 
 - Seven bundled schemes: Phonetic, Typewriter, Dives Akuru (keys); Malé Latin, Malé Latin (corpus),
   Áletinu, ISO 15919 (text).
+- The **Phonetic** keyboard carries a full **Arabic layer** on ++option++ / ++shift+option++ (re-encoded
+  from Apple's Dhivehi-QWERTY): Arabic letters with the harakat on the same keys as the Thaana fili, plus
+  tanween, hamza forms, and the `﷽` `ﷺ` `ﷻ` ligatures.
 - Schemes are TOML, resolved into a typed model where illegal states are unrepresentable.
 - **Runtime custom-scheme registry**: a host can register custom / third-party schemes at runtime —
   the same TOML format as bundled (no second standard), the same `base` inheritance, working everywhere
