@@ -50,7 +50,8 @@ prefix)` matches the document text before the caret (see [the keys path](archite
 
 :::note[Memory contract]
 Every `char*` returned is **caller-owned** — free it with `tk_string_free`. Every `TkSession*` is
-freed with `tk_session_free`. All functions are null-safe.
+freed with `tk_session_free`. All functions are null-safe. The one exception: `tk_version()` returns a
+**static** engine-version string — do **not** free it.
 :::
 
 ### Swift
