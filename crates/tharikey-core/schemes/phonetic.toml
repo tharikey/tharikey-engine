@@ -2,15 +2,16 @@
 # Base + shift follow SIL Global's "Divehi Phonetic Basic" (Keyman basic_kbddiv1, MIT). Two deliberate
 # departures: ޱ NAA on `x` (the one Thaana letter SIL omits — Apple's Dhivehi-QWERTY puts it here too;
 # x's old × was legacy cruft, dropped), and ﷲ ALLAH ligature on Shift+F (SIL placement; common muscle
-# memory). ThariKey also adds: optional long-vowel double-tap, the rufiyaa sign, RTL bracket-flip, and
-# ﷽ BISMILLAH on backtick (a low-traffic key; common convention — used as a phrase-opener in letters).
+# memory). ThariKey also adds: optional long-vowel double-tap, the rufiyaa sign, RTL bracket-flip, and a
+# full Arabic layer on ⌥ / ⇧⌥ (borrowed from Apple's Dhivehi-QWERTY). The ﷽ BISMILLAH lives on that layer
+# now (⇧⌥+p) — it used to sit on the backtick, which is now a plain `.
 # Keys are labelled by US-QWERTY physical position. Modifiers are layers, not strings.
 
 [meta]
 id = "phonetic"
 name = "Thaana Phonetic"
 description = "Latin keys map to the Thaana letters they sound like."
-about = "Base and shift layers follow SIL Global's “Divehi Phonetic Basic” (Keyman basic_kbddiv1, MIT). ThariKey places ޱ NAA on x (the one letter SIL omits), ﷲ on ⇧F and ﷽ on the backtick key, and adds an optional long-vowel double-tap, the rufiyaa sign, and RTL bracket-flip."
+about = "Base and shift layers follow SIL Global's “Divehi Phonetic Basic” (Keyman basic_kbddiv1, MIT). ThariKey places ޱ NAA on x (the one letter SIL omits) and ﷲ on ⇧F, adds an optional long-vowel double-tap, the rufiyaa sign, RTL bracket-flip, and a full Arabic layer on ⌥/⇧⌥ (borrowed from Apple's Dhivehi-QWERTY; ﷽ sits on ⇧⌥+p)."
 base = "thaana-common"   # inherits shared smart-quote + punctuation defaults
 input = "keys"
 output = "thaana"
@@ -47,7 +48,7 @@ x = "ޱ"   # NAA (U+07B1) — the one letter SIL leaves unmapped; placed on x li
 ";" = "؛"   # U+061B Arabic semicolon (RTL-correct)
 "," = "،"   # U+060C Arabic comma (RTL-correct)
 "'" = "'"   # straight apostrophe (smart-quotes may replace it)
-"`" = "﷽"   # U+FDFD BISMILLAH (presentation form; one-shot insert — NFC-stable, see header note)
+# (backtick is left unmapped → literal `; ﷽ BISMILLAH now lives on the Arabic layer at ⇧⌥+p)
 "[" = "["   # bracket keys mapped in US positions; the bracket_flip transform mirror-swaps the OUTPUT
 "]" = "]"
 
@@ -84,6 +85,62 @@ m = "ޟ"   # DAADHU
 "9" = "("   # paren keys (US: Shift+9 / Shift+0); flip mirror-swaps the output
 "0" = ")"
 "4" = "$"   # Shift+4 — the rufiyaa transform substitutes "$" → ⃂ (toggleable); long-press → $ / €
+
+# Arabic layer (⌥ and ⇧⌥) — re-encoded from Apple's "Dhivehi-QWERTY" Option layer (codepoint facts, not
+# their file). The IME already routes the Option modifier to these layers (see InputController). Arabic
+# letters sit phono-positionally; the harakat (vowel marks) land on the Thaana fili keys (a/u/i/q/p) so
+# Thaana muscle memory carries over. ⇧⌥ adds shifted letters, tanween, hamza forms, and the religious
+# ligatures (﷽ on p, ﷺ on -, ﷻ on =). Letters that have no ⇧⌥ form in Apple's layout are simply omitted.
+[layers.opt]
+q = "ْ"   # U+0652 ARABIC SUKUN (harakat — Thaana SUKUN key)
+w = "ا"   # U+0627 ALEF
+e = "ء"   # U+0621 HAMZA
+r = "ر"   # U+0631 REH
+t = "ت"   # U+062A TEH
+y = "ي"   # U+064A YEH
+u = "ُ"   # U+064F DAMMA (harakat — UBUFILI key)
+i = "ِ"   # U+0650 KASRA (harakat — IBIFILI key)
+o = "أ"   # U+0623 ALEF WITH HAMZA ABOVE
+p = "ّ"   # U+0651 SHADDA (harakat)
+a = "َ"   # U+064E FATHA (harakat — ABAFILI key)
+s = "س"   # U+0633 SEEN
+d = "د"   # U+062F DAL
+f = "ف"   # U+0641 FEH
+g = "غ"   # U+063A GHAIN
+h = "ه"   # U+0647 HEH
+j = "ج"   # U+062C JEEM
+k = "ك"   # U+0643 KAF
+l = "ل"   # U+0644 LAM
+z = "ظ"   # U+0638 ZAH
+x = "ط"   # U+0637 TAH
+c = "ث"   # U+062B THEH
+v = "و"   # U+0648 WAW
+b = "ب"   # U+0628 BEH
+n = "ن"   # U+0646 NOON
+m = "م"   # U+0645 MEEM
+
+[layers.shift_opt]
+q = "ق"   # U+0642 QAF
+w = "ع"   # U+0639 AIN
+e = "ئ"   # U+0626 YEH WITH HAMZA ABOVE
+r = "ز"   # U+0632 ZAIN
+t = "ة"   # U+0629 TEH MARBUTA
+y = "ى"   # U+0649 ALEF MAKSURA
+u = "ٌ"   # U+064C DAMMATAN
+i = "ٍ"   # U+064D KASRATAN
+o = "آ"   # U+0622 ALEF WITH MADDA ABOVE
+p = "﷽"   # U+FDFD BISMILLAH
+a = "ً"   # U+064B FATHATAN
+s = "ش"   # U+0634 SHEEN
+f = "ذ"   # U+0630 THAL
+h = "ح"   # U+062D HAH
+j = "ض"   # U+0636 DAD
+k = "خ"   # U+062E KHAH
+v = "ؤ"   # U+0624 WAW WITH HAMZA ABOVE
+b = "ش"   # U+0634 SHEEN — Apple maps b here same as s (a quirk in their layout; kept for fidelity)
+n = "ص"   # U+0635 SAD
+"-" = "ﷺ"   # U+FDFA SALLALLAAHU ALAYHI WA SALLAM
+"=" = "ﷻ"   # U+FDFB JALLA JALAALUHU
 
 # Long-press variants: rare letters / alternates reachable by holding a key (IME surfaces a variant
 # panel; rendering deferred to the IMK layer). Variants are explicit inserts — they bypass transforms.
