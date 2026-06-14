@@ -273,8 +273,26 @@ fn phonetic_long_press_variants() {
     assert!(s.variants_for("a").is_empty());
     // ﷲ ALLAH ligature is on Shift+F (the slot we'd been leaving empty)
     assert_eq!(k.layers.shift.get("f").map(String::as_str), Some("ﷲ"));
-    // ﷽ BISMILLAH on backtick (one-shot insert; presentation form)
-    assert_eq!(k.layers.base.get("`").map(String::as_str), Some("﷽"));
+    // backtick is a plain ` now — ﷽ BISMILLAH moved to the Arabic layer (⇧⌥+p), asserted below
+    assert_eq!(k.layers.base.get("`"), None);
+}
+
+#[test]
+fn phonetic_arabic_option_layer() {
+    let s = load_seed("phonetic").unwrap();
+    let k = s.as_keys().unwrap();
+    // ⌥ types a full Arabic layer (re-encoded from Apple's Dhivehi-QWERTY): letters placed phonetically…
+    assert_eq!(k.layers.opt.get("s").map(String::as_str), Some("س")); // SEEN
+    assert_eq!(k.layers.opt.get("b").map(String::as_str), Some("ب")); // BEH
+    assert_eq!(k.layers.opt.get("w").map(String::as_str), Some("ا")); // ALEF
+                                                                      // …with the harakat on the same keys as the Thaana fili (a/u/i/q/p)
+    assert_eq!(k.layers.opt.get("a").map(String::as_str), Some("\u{064E}")); // FATHA
+    assert_eq!(k.layers.opt.get("q").map(String::as_str), Some("\u{0652}")); // ARABIC SUKUN
+                                                                             // ⇧⌥ adds shifted letters, tanween/hamza forms, and the religious ligatures
+    assert_eq!(k.layers.shift_opt.get("s").map(String::as_str), Some("ش")); // SHEEN
+    assert_eq!(k.layers.shift_opt.get("p").map(String::as_str), Some("﷽")); // BISMILLAH
+    assert_eq!(k.layers.shift_opt.get("-").map(String::as_str), Some("ﷺ"));
+    assert_eq!(k.layers.shift_opt.get("=").map(String::as_str), Some("ﷻ"));
 }
 
 #[test]
